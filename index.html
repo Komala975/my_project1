@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e1f5fe;  /* Soft blue background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #ffffff;  /* White background for the form */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
+            width: 350px; /* Increased width of the form container */
+        }
+
+        h2 {
+            text-align: center;
+            color: #1e88e5;  /* Blue text color for the header */
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555;  /* Dark gray for label text */
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+            background-color: #f5f5f5;  /* Light gray background for input fields */
+        }
+
+        input:focus {
+            border-color: #1e88e5;  /* Focus border color */
+            background-color: #ffffff;  /* White background on focus */
+            outline: none;  /* Removes default outline */
+        }
+
+        .error {
+            color: #d32f2f;  /* Red color for error messages */
+            font-size: 12px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;  /* Green background for submit button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #388e3c;  /* Darker green on hover */
+        }
+
+        .submit-btn {
+            background-color: #2196F3;  /* Blue background for the submit button */
+        }
+
+        .submit-btn:hover {
+            background-color: #0b7dda;  /* Darker blue on hover */
+        }
+
+        .form-container .error-message {
+            color: #d32f2f;
+            text-align: center;
+        }
+
+        /* Responsive styling for smaller screens */
+        @media (max-width: 480px) {
+            .form-container {
+                width: 90%;  /* Make the form width smaller on mobile */
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Register</h2>
+        <form id="registrationForm" onsubmit="return validateForm()">
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname" required>
+
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" required>
+
+            <div id="error-message" class="error-message"></div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let errorMessage = "";
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirm-password").value;
+            let email = document.getElementById("email").value;
+            let firstname = document.getElementById("firstname").value;
+            let lastname = document.getElementById("lastname").value;
+
+            // Check if password and confirm password match
+            if (password !== confirmPassword) {
+                errorMessage = "Passwords do not match.";
+            }
+
+            // Basic email validation
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailPattern.test(email)) {
+                errorMessage = "Please enter a valid email address.";
+            }
+
+            // If there are error messages, display them and prevent form submission
+            if (errorMessage) {
+                document.getElementById("error-message").textContent = errorMessage;
+                return false;  // Prevent form submission
+            }
+
+            // If everything is valid, clear the error message and allow form submission
+            document.getElementById("error-message").textContent = "";
+            alert("Form submitted successfully!");
+            return true;  // Proceed with form submission (or add your backend processing here)
+        }
+    </script>
+</body>
+</html>
